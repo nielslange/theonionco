@@ -367,7 +367,7 @@ genesis_register_sidebar(
 /**
  * Render custom footer.
  *
- * @since 1.0.0
+ * @since 1.3.0
  * @return void
  */
 function nl_render_footer() {
@@ -382,6 +382,6 @@ add_action( 'genesis_after', 'nl_render_footer' );
 /**
  * Activate automatic plugin updates.
  *
- * @since 1.0.0
+ * @since 1.3.0
  */
 add_filter( 'auto_update_plugin', '__return_true' );
