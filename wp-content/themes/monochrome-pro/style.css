@@ -2074,6 +2074,10 @@ p.entry-meta {
 
 @media only screen and (max-width: 1280px) {
 
+	h1.bold-heading-text.fade-in-up.in-viewport {
+		padding-right: 60%;
+	}
+
 	.before-footer-cta .wrap,
 	.site-inner {
 		max-width: 960px;
@@ -2090,6 +2094,10 @@ p.entry-meta {
 }
 
 @media only screen and (max-width: 1023px) {
+
+	h1.bold-heading-text.fade-in-up.in-viewport {
+		padding-right: 45%;
+	}
 
 	.before-footer-cta .wrap,
 	.site-inner {
@@ -2298,6 +2306,10 @@ p.entry-meta {
 
 @media only screen and (max-width: 782px) {
 
+	h1.bold-heading-text.fade-in-up.in-viewport {
+		padding-right: 30%;
+	}
+
 	.before-footer-cta .wrap,
 	.site-inner {
 		max-width: 100%;
@@ -2357,6 +2369,10 @@ p.entry-meta {
 }
 
 @media only screen and (max-width: 600px) {
+
+	h1.bold-heading-text.fade-in-up.in-viewport {
+		padding-right: 15%;
+	}
 
 	.admin-bar .site-header {
 		position: relative;
