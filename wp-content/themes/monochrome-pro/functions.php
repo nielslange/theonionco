@@ -338,7 +338,7 @@ add_action( 'genesis_after', 'genesis_footer_markup_open', 5 );
 add_action( 'genesis_after', 'genesis_do_footer' );
 add_action( 'genesis_after', 'genesis_footer_markup_close', 15 );
 
-//add_filter( 'genesis_after', 'monochrome_custom_footer_logo', 7 );
+// add_filter( 'genesis_after', 'monochrome_custom_footer_logo', 7 );
 /**
  * Outputs the footer logo above the footer credits.
  *
@@ -367,13 +367,21 @@ genesis_register_sidebar(
 /**
  * Render custom footer.
  *
+ * @since 1.0.0
  * @return void
  */
 function nl_render_footer() {
-	$data = sprintf( '<p>Copyright &copy; %d', date( 'Y' ) );
+	$data  = sprintf( '<p>Copyright &copy; %d', date( 'Y' ) );
 	$data .= sprintf( ' - %s', get_bloginfo() );
 	$data .= sprintf( ' - All rights reserved' );
 	$data .= sprintf( ' - Developed with <abbr title="October 31st, 2019 &bull; Jakarta, Indonesia"><i class="fa fa-heart" aria-hidden="true"></i></abbr> by <a href="https://nielslange.com" target="_blank" title="Niels Lange | WordPress Developer"><strong>Niels Lange</strong></a><p>' );
 	echo $data; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
 add_action( 'genesis_after', 'nl_render_footer' );
+
+/**
+ * Activate automatic plugin updates.
+ *
+ * @since 1.0.0
+ */
+add_filter( 'auto_update_plugin', '__return_true' );
