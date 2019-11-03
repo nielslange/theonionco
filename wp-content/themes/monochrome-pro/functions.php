@@ -46,6 +46,9 @@ require_once get_stylesheet_directory() . '/lib/woocommerce/woocommerce-output.p
 // Includes notice to install Genesis Connect for WooCommerce.
 require_once get_stylesheet_directory() . '/lib/woocommerce/woocommerce-notice.php';
 
+// Includes CPTs and CTAXs.
+require_once get_stylesheet_directory() . '/lib/cpt-and-ctax.php';
+
 add_action( 'after_setup_theme', 'monochrome_theme_support', 1 );
 /**
  * Add desired theme supports.
@@ -378,10 +381,3 @@ function nl_render_footer() {
 	echo $data; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
 add_action( 'genesis_after', 'nl_render_footer' );
-
-/**
- * Activate automatic plugin updates.
- *
- * @since 1.3.0
- */
-add_filter( 'auto_update_plugin', '__return_true' );
