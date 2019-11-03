@@ -49,7 +49,7 @@ function nl_generate_cpt() {
 	$args   = array(
 		'label'               => __( 'A.R.T. Charity', 'monochrome-pro' ),
 		'labels'              => $labels,
-		'supports'            => array( 'title', 'editor', 'thumbnail', 'comments', 'trackbacks', 'revisions', 'custom-fields', 'page-attributes', 'post-formats' ),
+		'supports'            => array( 'title', 'editor', 'thumbnail', 'comments', 'trackbacks', 'revisions', 'author' ),
 		'taxonomies'          => array( 'artc_category', 'artc_post_tag' ),
 		'hierarchical'        => false,
 		'public'              => true,
@@ -100,7 +100,7 @@ function nl_generate_cpt() {
 	$args   = array(
 		'label'               => __( 'Tribe Member', 'monochrome-pro' ),
 		'labels'              => $labels,
-		'supports'            => array( 'title', 'editor', 'thumbnail', 'comments', 'trackbacks', 'revisions', 'custom-fields', 'page-attributes', 'post-formats' ),
+		'supports'            => array( 'title', 'editor', 'thumbnail', 'comments', 'trackbacks', 'revisions', 'author' ),
 		'taxonomies'          => array( 'tm_category', 'tm_post_tag' ),
 		'hierarchical'        => false,
 		'public'              => true,

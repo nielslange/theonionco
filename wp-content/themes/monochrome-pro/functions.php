@@ -100,6 +100,16 @@ function monochrome_enqueue_scripts_styles() {
 
 }
 
+add_action( 'admin_enqueue_scripts', 'admin_style' );
+/**
+ * Enqueues admin styles.
+ *
+ * @since 1.3.0
+ */
+function admin_style() {
+	wp_enqueue_style( 'admin-styles', get_stylesheet_directory_uri() . '/admin.css', array(), wp_get_theme()->get( 'Version' ), 'screen' );
+}
+
 /**
  * Defines responsive menu settings.
  *
@@ -341,23 +351,6 @@ add_action( 'genesis_after', 'genesis_footer_markup_open', 5 );
 add_action( 'genesis_after', 'genesis_do_footer' );
 add_action( 'genesis_after', 'genesis_footer_markup_close', 15 );
 
-// add_filter( 'genesis_after', 'monochrome_custom_footer_logo', 7 );
-/**
- * Outputs the footer logo above the footer credits.
- *
- * @since 1.2.0
- */
-function monochrome_custom_footer_logo() {
-
-	$footer_logo      = get_theme_mod( 'monochrome-footer-logo', monochrome_get_default_footer_logo() );
-	$footer_logo_link = sprintf( '<p><a class="footer-logo-link" href="%1$s"><img class="footer-logo" src="%2$s" alt="%3$s" /></a></p>', trailingslashit( home_url() ), esc_url( $footer_logo ), get_bloginfo( 'name' ) );
-
-	if ( $footer_logo ) {
-		echo $footer_logo_link; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-	}
-
-}
-
 // Registers widget areas.
 genesis_register_sidebar(
 	[
@@ -367,6 +360,7 @@ genesis_register_sidebar(
 	]
 );
 
+add_action( 'genesis_after', 'nl_render_footer' );
 /**
  * Render custom footer.
  *
@@ -380,4 +374,34 @@ function nl_render_footer() {
 	$data .= sprintf( ' - Developed with <abbr title="October 31st, 2019 &bull; Jakarta, Indonesia"><i class="fa fa-heart" aria-hidden="true"></i></abbr> by <a href="https://nielslange.com" target="_blank" title="Niels Lange | WordPress Developer"><strong>Niels Lange</strong></a><p>' );
 	echo $data; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
-add_action( 'genesis_after', 'nl_render_footer' );
+
+add_filter( 'dashboard_glance_items', 'custom_glance_items', 10, 1 );
+/**
+ * Add CPTs to At a glace dashboard widget
+ *
+ * @param array $items The original array with post type items.
+ * @return array $items The updated array with post type items.
+ */
+function custom_glance_items( $items = array() ) {
+	$post_types = array( 'art-charity', 'tribe-member' );
+	foreach ( $post_types as $type ) {
+		if ( ! post_type_exists( $type ) ) {
+			continue;
+		}
+		$num_posts = wp_count_posts( $type );
+		if ( $num_posts ) {
+			$published = intval( $num_posts->publish );
+			$post_type = get_post_type_object( $type );
+			$text      = _n( '%s ' . $post_type->labels->singular_name, '%s ' . $post_type->labels->name, $published, 'your_textdomain' );
+			$text      = sprintf( $text, number_format_i18n( $published ) );
+			if ( current_user_can( $post_type->cap->edit_posts ) ) {
+				$output = '<a href="edit.php?post_type=' . $post_type->name . '">' . $text . '</a>';
+				echo '<li class="post-count ' . $post_type->name . '-count">' . $output . '</li>';
+			} else {
+				$output = '<span>' . $text . '</span>';
+				echo '<li class="post-count ' . $post_type->name . '-count">' . $output . '</li>';
+			}
+		}
+	}
+	return $items;
+}
