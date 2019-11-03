@@ -1,0 +1,9 @@
+#dashboard_right_now .post-count.art-charity-count a:before,
+#dashboard_right_now .post-count.art-charity-count span:before {
+	content: "\f487";
+}
+
+#dashboard_right_now .post-count.tribe-member-count a:before,
+#dashboard_right_now .post-count.tribe-member-count span:before {
+	content: "\f110";
+}
